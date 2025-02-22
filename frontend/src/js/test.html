@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="xhrSend()">Click me</button>
+<script>
+    function xhrSend(){
+        let xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://localhost:7070/?method=allTickets")
+        xhr.send()
+        xhr.onload = function(){
+            console.log(`Loaded: ${xhr.status} ${xhr.response}`)
+        }
+        xhr.onerror = () => console.log('Error connection')
+        xhr.onprogress = (event) => console.log(`loaded ${event.loaded} from ${event.total}`)
+        console.log(xhr)
+    }   
+</script>
+</body>
+</html>
