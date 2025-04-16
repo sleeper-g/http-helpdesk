@@ -1,0 +1,75 @@
+* {
+    font-size: 30px;
+    margin: 0;
+    padding: 0;
+}
+#root {
+    position: relative;
+}
+.ticket-add-container {
+    display: flex;
+    justify-content: right;
+}
+.ticket-add {
+    border: solid #000 3px;
+    border-radius: 35px;
+    margin: 35px;
+    padding: 25px;
+    width: 350px;
+    text-align: center;
+    box-shadow: 8px 8px 5px #444;
+}
+.ticket-list {
+    margin: 40px;
+}
+.ticket-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    border: solid #000 3px;
+}
+.ticket-status input[type="checkbox"] {
+    display: none;
+}
+.ticket-status-body {
+    width: 50px;
+    height: 50px;
+    border: #000 solid 3px;
+    border-radius: 45px;
+    margin: 15px 15px 0px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    display: inline-flex;
+}
+.ticket-status input[type="checkbox"]:checked + .ticket-status-body::before {
+    content: "✓";
+}
+.ticket-name {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+}
+.ticket-edit {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    margin: 15px;
+    border: #000 solid 3px;
+    border-radius: 45px;
+}
+.ticket-delete {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    margin: 15px;
+    border: #000 solid 3px;
+    border-radius: 45px;
+    background-image: ✎;
+}
+.ticket-hidden {
+    display: none;
+/*     visibility: hidden;
+ */}

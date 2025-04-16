@@ -1,28 +1,85 @@
-/**
- * Класс для связи с сервером.
- * Содержит методы для отправки запросов на сервер и получения ответов
- **/
 export default class TicketService {
-  list(callback) {
-/*     return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve("Synchronous data");
-      }, 2000);
-    });
- */  
-    options = {
-      url: "http://127.0.0.1",
-      port: "7070",
-      method: "allTickets",
+  constructor(url, port) {
+    this.url = url,
+    this.port = port
+  }
+  async list(callback) { 
+    const options = {
+      methodName: "allTickets",
+      method: "GET"
     }
-    callback(options)
+    try {
+      const serverAnswer = await callback(
+        this.url,
+        this.port,
+        options.methodName,
+        options.method);
+      return serverAnswer;
+    } catch(error) {
+      console.error("error in TicketService list: ", error);
+    }
   }
 
-  get(id, callback) {}
+  async get(id, callback) {
+    const options = {
+      methodName: "ticketById",
+      method: "GET",
+      id
+    }
+    try {
+      const serverAnswer = await callback(
+        this.url,
+        this.port,
+        options.methodName,
+        options.method,
+        options.id);
+      return serverAnswer;
+    } catch(error) {
+      console.error("error in TicketService get: ", error);
+    } 
+  }
 
-  create(data, callback) {}
+  async create(data, callback) {
+    const options = {
+      methodName: "createTicket",
+      method: "POST",
+      id: null,
+      data,
+    }
+    try {
+      const serverAnswer = await callback(
+        this.url,
+        this.port,
+        this.methodName,
+        this.method,
+        options.id,
+        options.data,
+      )
+      return serverAnswer;
+    } catch(error) {
+      console.error("error in TicketService create: ", error)
+    }
+  }
 
   update(id, data, callback) {}
 
-  delete(id, callback) {}
+  async delete(id, callback) {
+    const options = {
+      methodName: "deleteById",
+      method: "GET",
+      id
+    }
+    try {
+      const serverAnswer = await callback(
+        this.url,
+        this.port,
+        options.methodName,
+        options.method,
+        options.id
+      );
+      return serverAnswer
+    } catch(error) {
+      console.error("error in TicketService delete: ", error);
+    }
+  }
 }
