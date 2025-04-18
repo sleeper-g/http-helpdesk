@@ -1,75 +1,132 @@
 * {
-    font-size: 30px;
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
-#root {
-    position: relative;
+
+body {
+  background-color: #f4f4f4;
+  padding: 20px;
 }
-.ticket-add-container {
-    display: flex;
-    justify-content: right;
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 0 20px;
 }
-.ticket-add {
-    border: solid #000 3px;
-    border-radius: 35px;
-    margin: 35px;
-    padding: 25px;
-    width: 350px;
-    text-align: center;
-    box-shadow: 8px 8px 5px #444;
+
+.btn-add {
+  background-color: #28a745;
+  color: #fff;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
 }
+
+.btn-add:hover {
+  background-color: #218838;
+}
+
 .ticket-list {
-    margin: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
-.ticket-body {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 10px;
-    border: solid #000 3px;
+
+.ticket {
+  background-color: #fff;
+  padding: 15px 20px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-.ticket-status input[type="checkbox"] {
-    display: none;
+
+.ticket input[type="checkbox"] {
+  margin-right: 15px;
 }
-.ticket-status-body {
-    width: 50px;
-    height: 50px;
-    border: #000 solid 3px;
-    border-radius: 45px;
-    margin: 15px 15px 0px;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    display: inline-flex;
+
+.ticket span {
+  flex: 1;
+  margin-right: 10px;
 }
-.ticket-status input[type="checkbox"]:checked + .ticket-status-body::before {
-    content: "✓";
+
+.ticket-date {
+  font-size: 12px;
+  color: #888;
+  margin-right: 10px;
+  white-space: nowrap;
 }
-.ticket-name {
-    align-items: center;
-    display: inline-flex;
-    justify-content: center;
+
+.ticket-actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  margin-left: 5px;
+  transition: transform 0.2s ease;
 }
+
+.ticket-actions button:hover {
+  transform: scale(1.2);
+}
+
+.ticket-add,
 .ticket-edit {
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    margin: 15px;
-    border: #000 solid 3px;
-    border-radius: 45px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  z-index: 1000;
 }
-.ticket-delete {
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    margin: 15px;
-    border: #000 solid 3px;
-    border-radius: 45px;
-    background-image: ✎;
+
+.ticket-add.hidden,
+.ticket-edit.hidden {
+  display: none;
 }
-.ticket-hidden {
-    display: none;
-/*     visibility: hidden;
- */}
+
+.ticket-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ticket-form input,
+.ticket-form textarea {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.ticket-form-btn {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn-ok,
+.btn-cancel {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-ok {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-cancel {
+  background-color: #6c757d;
+  color: white;
+}

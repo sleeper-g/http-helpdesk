@@ -1,26 +1,30 @@
-const createRequest = async (url, port, methodName, method, id, data) => {
-  const uri = typeof id === 'undefined'
-    ? `http://${url}:${port}/?method=${methodName}`
-    : `http://${url}:${port}/?method=${methodName}&id=${id}`;
+export const baseURL = 'http://localhost:7070';
+
+export const requestCallback = async (url, methodName, method, id = null, data = null) => {
+  const params = new URLSearchParams();
+  params.set('method', methodName);
+  if (id) params.set('id', id);
+
   const options = {
     method,
-    headers: {
-            'Content-Type': 'application/json',
-    },
+    headers: { 'Content-Type': 'application/json' },
   };
-  if (method === 'POST') {
+
+  if (method === 'POST' || method === 'PUT') {
     options.body = JSON.stringify(data);
   }
-  try {
-    const response = await fetch(uri, options);
-    if (!response.ok) {
-      throw Error("Request failed");
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log(error.message);
+
+  const response = await fetch(`${url}/?${params.toString()}`, options);
+  if (!response.ok) throw new Error('Ошибка запроса');
+
+  const contentType = response.headers.get('content-type');
+  if (contentType && contentType.includes('application/json')) {
+    return await response.json();
   }
+  return null;
 };
 
-export default createRequest;
+export const formatDate = (timestamp) => {
+  const date = new Date(timestamp);
+  return date.toLocaleString();
+};
