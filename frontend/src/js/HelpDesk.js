@@ -1,8 +1,6 @@
-/**
- *  Основной класс приложения
- * */
 import TicketService from "./TicketService";
 import createRequest from "./api/createRequest";
+import TicketForm from "./TicketForm";
 
 export default class HelpDesk {
   constructor(container, ticketService) {
@@ -12,8 +10,18 @@ export default class HelpDesk {
     this.container = container;
     this.ticketService = ticketService;
   }
-
-  async renderPage() {
+  renderBasicPage() {
+    this.container.innerHTML= `
+    <div class="ticket-add-container">
+    <div class="ticket-add">Добавить тикет</div>
+    </div>
+    <div class="ticket-list"></div>
+    `
+    const button = this.container.querySelector(".ticket-add");
+    const formAdd = new TicketForm(this.container);
+    button.addEventListener("click", (c) => { formAdd.addForm() })
+  }
+  async renderAsyncPage(parentEl) {
     const serverAnswer = await this.ticketService.list(createRequest);
     serverAnswer.forEach(el => {
       const ticketStatus = el.status ? "ticket-active" : "ticket-inactive"; // if cheked
@@ -34,17 +42,12 @@ export default class HelpDesk {
       newEl.querySelector(".ticket-name").textContent = el.name;
       newEl.querySelector(".ticket-created").textContent = el.created;
       newEl.querySelector(".ticket-deskription").textContent = el.description;
-      this.ticketList.append(newEl);
+      parentEl.append(newEl);
     });
   }
   init() {
-    this.container.innerHTML = `
-    <div class="ticket-add-container">
-    <div class="ticket-add">Добавить тикет</div>
-    </div>
-    <div class="ticket-list"></div>
-    `;
-    this.ticketList = this.container.querySelector(".ticket-list")
-    this.renderPage();
+    this.renderBasicPage();
+    const parentEl = this.container.querySelector(".ticket-list");
+    this.renderAsyncPage(parentEl);
   }
 }
