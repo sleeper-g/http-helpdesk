@@ -16,7 +16,14 @@ export const requestCallback = async (url, methodName, method, id = null, data =
 
   const response = await fetch(`${url}/?${params.toString()}`, options);
   if (!response.ok) throw new Error('Ошибка запроса');
-  return await response.json();
+
+  const text = await response.text();
+  try {
+    return text ? JSON.parse(text) : null;
+  } catch (error) {
+    console.warn('Ошибка парсинга JSON:', error, 'Ответ:', text);
+    throw error;
+  }
 };
 
 export const formatDate = (timestamp) => {
