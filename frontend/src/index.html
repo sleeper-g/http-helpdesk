@@ -2,30 +2,40 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>HelpDesk</title>
-  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="header">
-    <button class="btn btn-add">Добавить тикет</button>
-  </div>
+  <div class="container">
+    <div class="header">
+      <button class="btn btn-add">Добавить тикет</button>
+    </div>
 
-  <div class="ticket-list"></div>
+    <div class="ticket-list"></div>
 
-  <div class="ticket-add hidden">
-    <form class="ticket-form">
-      <h2>Добавить/Изменить тикет</h2>
-      <label>Краткое описание</label>
-      <input type="text" name="short-description" required />
-      <label>Подробное описание</label>
-      <textarea name="full-description"></textarea>
-      <div class="ticket-form-btn">
-        <button type="button" class="btn-cancel">Отмена</button>
-        <button type="submit" class="btn-ok">Сохранить</button>
+    <div class="ticket-add hidden">
+      <form class="ticket-form">
+        <h2>Добавить / Изменить тикет</h2>
+        <label>Краткое описание</label>
+        <input type="text" name="short-description" required />
+        <label>Подробное описание</label>
+        <textarea name="full-description"></textarea>
+        <div class="ticket-form-btn">
+          <button type="button" class="btn-cancel">Отмена</button>
+          <button class="btn-ok">Сохранить</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="ticket-delete hidden">
+      <div class="modal">
+        <span class="modal-icon">🗑️</span>
+        <p>Вы уверены, что хотите удалить тикет?</p>
+        <div class="ticket-form-btn">
+          <button type="button" class="btn-cancel">Отмена</button>
+          <button class="btn-ok">Удалить</button>
+        </div>
       </div>
-    </form>
+    </div>
   </div>
-
 </body>
 </html>

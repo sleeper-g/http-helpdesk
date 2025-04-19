@@ -16,12 +16,7 @@ export const requestCallback = async (url, methodName, method, id = null, data =
 
   const response = await fetch(`${url}/?${params.toString()}`, options);
   if (!response.ok) throw new Error('Ошибка запроса');
-
-  const contentType = response.headers.get('content-type');
-  if (contentType && contentType.includes('application/json')) {
-    return await response.json();
-  }
-  return null;
+  return await response.json();
 };
 
 export const formatDate = (timestamp) => {

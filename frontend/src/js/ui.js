@@ -1,6 +1,6 @@
 import { baseURL, requestCallback, formatDate } from './api/createRequest';
 
-export function createTicketElement(ticket, expandedTickets, loadTickets, form, showModal, setEditingTicketId) {
+export function createTicketElement(ticket, expandedTickets, loadTickets, form, showModal, setEditingTicketId, showDeleteConfirm) {
   const ticketEl = document.createElement('div');
   ticketEl.classList.add('ticket');
 
@@ -63,10 +63,7 @@ export function createTicketElement(ticket, expandedTickets, loadTickets, form, 
   const deleteBtn = document.createElement('button');
   deleteBtn.textContent = '🗑️';
   deleteBtn.classList.add('btn-delete');
-  deleteBtn.addEventListener('click', async () => {
-    await requestCallback(baseURL, 'deleteById', 'GET', ticket.id);
-    await loadTickets();
-  });
+  deleteBtn.addEventListener('click', () => showDeleteConfirm(ticket.id));
 
   actionsEl.appendChild(editBtn);
   actionsEl.appendChild(deleteBtn);
@@ -78,3 +75,4 @@ export function createTicketElement(ticket, expandedTickets, loadTickets, form, 
 
   return ticketEl;
 }
+

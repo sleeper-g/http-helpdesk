@@ -7,8 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const modal = document.querySelector('.ticket-add');
   const form = modal.querySelector('.ticket-form');
   const cancelBtn = modal.querySelector('.btn-cancel');
+  const deleteModal = document.querySelector('.ticket-delete');
+  const confirmDeleteBtn = deleteModal.querySelector('.btn-ok');
+  const cancelDeleteBtn = deleteModal.querySelector('.btn-cancel');
 
   let editingTicketId = null;
+  let ticketIdToDelete = null;
   const expandedTickets = new Set();
 
   const setEditingTicketId = (id) => editingTicketId = id;
@@ -19,11 +23,21 @@ document.addEventListener('DOMContentLoaded', () => {
     editingTicketId = null;
   };
 
+  const showDeleteConfirm = (id) => {
+    ticketIdToDelete = id;
+    deleteModal.classList.remove('hidden');
+  };
+
+  const hideDeleteConfirm = () => {
+    ticketIdToDelete = null;
+    deleteModal.classList.add('hidden');
+  };
+
   const loadTickets = async () => {
     ticketList.innerHTML = '';
     const tickets = await requestCallback(baseURL, 'allTickets', 'GET');
     tickets.forEach(ticket => {
-      const ticketEl = createTicketElement(ticket, expandedTickets, loadTickets, form, showModal, setEditingTicketId);
+      const ticketEl = createTicketElement(ticket, expandedTickets, loadTickets, form, showModal, setEditingTicketId, showDeleteConfirm);
       ticketList.appendChild(ticketEl);
     });
   };
@@ -47,6 +61,16 @@ document.addEventListener('DOMContentLoaded', () => {
     hideModal();
     await loadTickets();
   });
+
+  confirmDeleteBtn.addEventListener('click', async () => {
+    if (ticketIdToDelete) {
+      await requestCallback(baseURL, 'deleteById', 'GET', ticketIdToDelete);
+      hideDeleteConfirm();
+      await loadTickets();
+    }
+  });
+
+  cancelDeleteBtn.addEventListener('click', hideDeleteConfirm);
 
   addBtn.addEventListener('click', showModal);
   cancelBtn.addEventListener('click', () => {
